@@ -1,0 +1,22 @@
+{
+  "name": "op-cli",
+  "version": "1.0.0",
+  "description": "CLI to communicate with an octoprint server",
+  "main": "op.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "octoprint",
+    "3dprinting",
+    "cli"
+  ],
+  "author": "Matt Rathbun",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^0.12.0",
+    "jsonfile": "^2.2.3",
+    "mkdirp": "^0.5.1",
+    "untildify": "^2.1.0"
+  }
+}
