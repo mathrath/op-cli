@@ -3,8 +3,8 @@
 
 var commander = require('commander');
 commander
-	.option('-a, --api [apiKey]', 'API Key')
-	.option('-s, --server [address]', 'Server address')
+	.option('-a, --api <apiKey>', 'API Key')
+	.option('-s, --server <address>', 'Server address')
 	.option('-v, --verbose', 'Verbose output')
 	.parse(process.argv);
 
