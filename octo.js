@@ -10,7 +10,7 @@ var exports = {};
 doPost = function(subAddress, payload, expected, callback){
 	var options = {
 		url: "http://" + settings.address + subAddress,
-		form: payload,
+		json: payload,
 		headers: {
 			'X-Api-Key':settings.apiKey
 		}

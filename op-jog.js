@@ -1,8 +1,8 @@
 var commander = require('commander');
 commander
-	.option('-x <x>', 'mm to move in X axis')
-	.option('-y <y>', 'mm to move in Y axis')
-	.option('-z <z>', 'mm to move in Z axis')
+	.option('-x <x>', 'mm to move in X axis', parseFloat)
+	.option('-y <y>', 'mm to move in Y axis', parseFloat)
+	.option('-z <z>', 'mm to move in Z axis', parseFloat)
 	.option('-v, --verbose', 'Verbose output')
 	.parse(process.argv);
 
