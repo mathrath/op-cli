@@ -7,6 +7,7 @@ commander
 	.command('version', 'Get Octoprint version information')
 	.command('jog', 'Move extruder around')
 	.command('home', 'Home axes')
+	.command('temp', 'View and change temperatures')
 	.parse(process.argv);
 
 

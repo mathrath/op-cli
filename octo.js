@@ -26,6 +26,24 @@ doPost = function(subAddress, payload, expected, callback){
 	});
 }
 
+doGet = function(subAddress, expected, callback){
+	var options = {
+		url: "http://" + settings.address + subAddress,
+		headers: {
+			'X-Api-Key':settings.apiKey
+		}
+	};
+
+	request.get(options, function(error, response, body){
+		if (response && response.statusCode == expected){
+			callback(null, body);
+		}
+		else {
+			callback(error, null);
+		}
+	});
+}
+
 
 
 exports.getVersion = getVersion = function(callback){
@@ -73,6 +91,59 @@ exports.home = home = function(x, y, z, callback){
 
 	doPost("/api/printer/printhead", payload, 204, callback);
 }
+
+exports.getBedTemp = getBedTemp = function(callback){
+	doGet("/api/printer/bed", 200, function(err, body){
+		if (err) {
+			console.log("err: " + err);
+			process.exit(1);
+		}
+
+		var obj = JSON.parse(body);
+		var actualTemp = obj.bed.actual;
+		var targetTemp = obj.bed.target;
+
+		if ((actualTemp != 0 && !actualTemp) || (targetTemp != 0 && !targetTemp)) {
+			console.log("Unexpected response from server: " + body);
+			process.exit(1);
+		}
+		else {
+			callback({actual:actualTemp, target:targetTemp});
+		}
+	});
+}
+
+exports.getToolTemps = getToolTemps = function(callback){
+	doGet("/api/printer/tool", 200, function(err, body){
+		if (err){
+			console.log("err: " + err);
+			process.exit(1);
+		}
+
+		obj = JSON.parse(body);
+		var result = {};
+
+		Object.keys(obj).forEach(function (each) {
+			if (each.startsWith("tool")) {
+
+				var actualTemp = obj[each].actual;
+				var targetTemp = obj[each].target;
+
+				if ((actualTemp != 0 && !actualTemp) || (targetTemp != 0 && !targetTemp)) {
+					console.log("Unexpected response from server: " + body);
+					process.exit(1);
+				}
+				else {
+					result[each] = {actual:actualTemp, target:targetTemp};
+				}
+			}
+		});
+
+		callback(result);
+
+	});
+}
+
 	
 
 
