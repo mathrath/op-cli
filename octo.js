@@ -60,6 +60,22 @@ exports.jog = jog = function(x, y, z, callback){
 	doPost("/api/printer/printhead", payload, 204, callback);
 }
 
+exports.home = home = function(x, y, z, callback){
+	var payload = {};
+	var axes = [];
+
+	if (x) axes.push("x");
+	if (y) axes.push("y");
+	if (z) axes.push("z");
+
+	payload["command"] = "home";
+	payload["axes"] = axes;
+
+	doPost("/api/printer/printhead", payload, 204, callback);
+}
+	
+
+
 
 module.exports = function (s) {
 	if (s) {
