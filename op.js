@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 
-var commander = require('commander');
-
-commander
-	.command('config', 'Change Octoprint connection settings')
-	.command('version', 'Get Octoprint version information')
-	.command('jog', 'Move extruder around')
-	.command('home', 'Home axes')
-	.command('temp', 'View and change temperatures')
-	.parse(process.argv);
-
-
+var argv = require('yargs')
+	.command(require('./config'))
+	.command(require('./version'))
+	.command(require('./jog'))
+	.command(require('./home'))
+	.command(require('./temp'))
+	.demand(1)
+	.argv;
 
