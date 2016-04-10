@@ -1,14 +1,40 @@
-exports.command = 'temp [set] [what] [temp]';
+var unit = "°C";
+var octo = require("./octo")();
+
+exports.command = 'temp';
 
 exports.describe = 'Get or set temperatures';
 
-exports.builder = {}
+exports.builder = {
+	"list":{
+		alias:["l", "p", "print"]
+	},
+	
+	"bed":{
+		alias:"b"
+	}
+}
 
 exports.handler = function (argv) {
 
-	var unit = "°C";
+	if (argv.list){
+		listTemps();
+	}
+	if (argv.bed || argv.bed == 0){
+		var newBedTemp = argv.bed;
 
-	var octo = require("./octo")();
+		octo.setBedTemp(newBedTemp, function(err, body){
+			console.log("body: " + body);
+			console.log("error: " + err);
+		});
+	}
+	else {
+		listTemps();
+	}
+
+}
+
+function listTemps(){
 
 	octo.getBedTemp(function(bedTemp){
 

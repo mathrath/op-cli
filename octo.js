@@ -148,6 +148,10 @@ exports.getToolTemps = getToolTemps = function(callback){
 	});
 }
 
+exports.setBedTemp = setBedTemp = function(newTemp, callback){
+	doPost("/api/printer/bed", {"command": "target", "target": newTemp}, 204, callback);
+}
+
 	
 
 
