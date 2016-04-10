@@ -5,9 +5,13 @@ var jsonfile = require('jsonfile');
 var apiKey;
 var address;
 
+var invertX = false;
+var invertY = false;
+var invertZ = false;
+
 var exports = {};
 
-var saveConfig = exports.saveConfig = module.exports.saveConfig = function(config) {
+var saveConfig = exports.saveConfig = module.exports.saveConfig = function() {
 
 	var path = require('path');
 	var mkdirp = require('mkdirp');
@@ -17,12 +21,12 @@ var saveConfig = exports.saveConfig = module.exports.saveConfig = function(confi
 			console.err('Unable to create configuration folder');
 		}
 		else {
-			jsonfile.writeFile(CONFIG_FILE, config, function(err){
+			jsonfile.writeFile(CONFIG_FILE, exports.config, function(err){
 				if (err){
 					console.error(err);
 				}
 				else {
-					console.log('Configuration saved: ' + JSON.stringify(config));
+					console.log('Configuration saved: ' + JSON.stringify(exports.config));
 				}
 			});
 		}
@@ -42,6 +46,9 @@ module.exports = function(){
 	if (exports.config) {
 		exports.apiKey = exports.config.apiKey;
 		exports.address = exports.config.address;
+		exports.invertX = (exports.config.invertX ? exports.config.invertX : false);
+		exports.invertY = (exports.config.invertY ? exports.config.invertY : false);
+		exports.invertZ = (exports.config.invertZ ? exports.config.invertZ : false);
 	}
 
 	return exports;

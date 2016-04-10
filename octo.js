@@ -69,9 +69,13 @@ exports.jog = jog = function(x, y, z, callback){
 	var payload = {};
 	payload["command"] = "jog";
 
-	if (x) payload["x"] = x;
-	if (y) payload["y"] = y;
-	if (z) payload["z"] = z;
+	var invertX = settings.invertX ? -1 : 1;
+	var invertY = settings.invertY ? -1 : 1;
+	var invertZ = settings.invertZ ? -1 : 1;
+
+	if (x) payload["x"] = x * invertX;
+	if (y) payload["y"] = y * invertY;
+	if (z) payload["z"] = z * invertZ;
 
 	console.log(payload);
 
